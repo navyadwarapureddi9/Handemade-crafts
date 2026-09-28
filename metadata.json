@@ -1,0 +1,6 @@
+{
+  "name": "TerraLoom - Handcrafted Artisan Collective & Studio",
+  "description": "A modern discovery platform and studio collective for authentic handmade crafts, connecting discerning patrons with master potters, weavers, jewelers, and woodworkers.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --color-terracotta: #C85A32;
+  --color-terracotta-dark: #A43F1B;
+  --color-terracotta-light: #F3DDD3;
+  --color-linen: #FAF7F2;
+  --color-linen-dark: #F0ECE1;
+  --color-clay: #7A5C4D;
+  --color-sage: #506B52;
+  --color-charcoal: #211E1C;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FAF7F2;
+  color: #211E1C;
+}
+
+.font-editorial {
+  font-family: var(--font-serif);
+}
