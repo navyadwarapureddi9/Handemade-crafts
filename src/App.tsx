@@ -10,6 +10,7 @@ import { CustomCommissionDesk } from './components/CustomCommissionDesk';
 import { CartDrawer } from './components/CartDrawer';
 import { OrderSuccessModal } from './components/OrderSuccessModal';
 import { AIStudioBlueprintModal } from './components/AIStudioBlueprintModal';
+import { N8nChatbot } from './components/N8nChatbot';
 import { Footer } from './components/Footer';
 
 import {
@@ -50,6 +51,7 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<CraftProduct | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isBlueprintOpen, setIsBlueprintOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [completedOrder, setCompletedOrder] = useState<ArtisanOrder | null>(null);
   const [currentArtisanId, setCurrentArtisanId] = useState<string>(INITIAL_ARTISANS[0].id);
   const [preselectedCommissionArtisan, setPreselectedCommissionArtisan] = useState<Artisan | null>(null);
@@ -219,6 +221,7 @@ export default function App() {
         cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
         openCart={() => setIsCartOpen(true)}
         openBlueprint={() => setIsBlueprintOpen(true)}
+        onOpenChat={() => setIsChatOpen(true)}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         selectedCategory={selectedCategory}
@@ -238,6 +241,7 @@ export default function App() {
               }}
               onMeetMakers={() => setActiveTab('makers')}
               onCommission={() => setActiveTab('commission')}
+              onOpenChat={() => setIsChatOpen(true)}
               onSelectProduct={(p) => setSelectedProduct(p)}
               spotlightProduct={spotlightProduct}
             />
@@ -377,6 +381,12 @@ export default function App() {
       <AIStudioBlueprintModal
         isOpen={isBlueprintOpen}
         onClose={() => setIsBlueprintOpen(false)}
+      />
+
+      {/* Live n8n Cloud Artisan Concierge Chatbot */}
+      <N8nChatbot
+        isOpenExternally={isChatOpen}
+        onToggleExternal={() => setIsChatOpen(!isChatOpen)}
       />
 
       {/* Footer */}

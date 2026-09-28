@@ -176,6 +176,48 @@ As an experienced master artisan consultant, analyze the feasibility, suggest id
   }
 });
 
+const N8N_CHAT_WEBHOOK_URL =
+  process.env.N8N_CHAT_WEBHOOK_URL ||
+  'https://navyadwarapureddi.app.n8n.cloud/webhook/906a3206-cab7-47f8-a0c6-7e62457927ad/chat';
+
+// POST /api/n8n-chat
+// Proxies chat requests to the n8n webhook, avoiding browser CORS limitations
+app.post('/api/n8n-chat', async (req, res) => {
+  try {
+    const { chatInput, sessionId, message } = req.body;
+    const input = chatInput || message || '';
+
+    const response = await fetch(N8N_CHAT_WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chatInput: input,
+        message: input,
+        sessionId: sessionId || 'patron-session',
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      return res.status(response.status).json({
+        error: `n8n webhook returned status ${response.status}`,
+        details: errorText,
+      });
+    }
+
+    const data = await response.json();
+    return res.json(data);
+  } catch (error: any) {
+    console.error('Error forwarding to n8n webhook:', error);
+    return res.status(500).json({
+      error: 'Failed to communicate with n8n chatbot',
+      message: error?.message || 'Unknown error',
+    });
+  }
+});
+
 // Vite middleware in dev or static files in production
 async function startServer() {
   if (process.env.NODE_ENV === 'production') {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShoppingBag, Search, Sparkles, Hammer, Heart, Compass, X } from 'lucide-react';
+import { ShoppingBag, Search, Sparkles, Hammer, Heart, Compass, X, Bot } from 'lucide-react';
 import { CraftCategory } from '../types';
 
 interface NavbarProps {
@@ -8,6 +8,7 @@ interface NavbarProps {
   cartCount: number;
   openCart: () => void;
   openBlueprint: () => void;
+  onOpenChat: () => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   selectedCategory: CraftCategory;
@@ -20,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   openCart,
   openBlueprint,
+  onOpenChat,
   searchQuery,
   setSearchQuery,
   selectedCategory,
@@ -38,13 +40,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden sm:inline text-stone-400">·</span>
             <span className="hidden sm:inline text-stone-400">Living Wage Certified</span>
           </div>
-          <button
-            onClick={openBlueprint}
-            className="flex items-center gap-1.5 text-[#F3DDD3] hover:text-white transition-colors cursor-pointer text-xs font-medium"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#E27D60]" />
-            <span>AI Studio Blueprint & Master Prompt</span>
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={onOpenChat}
+              className="flex items-center gap-1.5 text-[#F3DDD3] hover:text-white transition-colors cursor-pointer text-xs font-medium"
+            >
+              <Bot className="w-3.5 h-3.5 text-[#E27D60]" />
+              <span>Ask Artisan AI (n8n Live)</span>
+            </button>
+            <span className="text-stone-600 hidden sm:inline">|</span>
+            <button
+              onClick={openBlueprint}
+              className="hidden sm:flex items-center gap-1.5 text-[#F3DDD3] hover:text-white transition-colors cursor-pointer text-xs font-medium"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#E27D60]" />
+              <span>AI Studio Blueprint</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -152,6 +164,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Search className="w-5 h-5" />
             </button>
 
+            {/* Artisan AI Concierge Button */}
+            <button
+              onClick={onOpenChat}
+              className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-md transition-all cursor-pointer border bg-[#F0ECE1] text-[#24211D] border-[#E0D8C8] hover:bg-[#E8E1D2]"
+              title="Chat with n8n Artisan Concierge"
+            >
+              <Bot className="w-3.5 h-3.5 text-[#C85A32]" />
+              <span className="hidden xl:inline">AI Concierge</span>
+            </button>
+
             {/* Artisan Studio Mode Button */}
             <button
               onClick={() => setActiveTab(activeTab === 'portal' ? 'shop' : 'portal')}
@@ -236,10 +258,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             Bespoke Commissions
           </button>
           <button
-            onClick={openBlueprint}
+            onClick={onOpenChat}
             className="whitespace-nowrap pb-1 text-[#C85A32] font-semibold flex items-center gap-1"
           >
-            <Sparkles className="w-3 h-3" />
+            <Bot className="w-3 h-3" />
+            AI Chat
+          </button>
+          <button
+            onClick={openBlueprint}
+            className="whitespace-nowrap pb-1 text-stone-600 hover:text-[#C85A32] font-medium flex items-center gap-1"
+          >
+            <Sparkles className="w-3 h-3 text-[#C85A32]" />
             AI Blueprint
           </button>
         </div>

@@ -6,6 +6,7 @@ interface HeroProps {
   onExplore: () => void;
   onMeetMakers: () => void;
   onCommission: () => void;
+  onOpenChat?: () => void;
   onSelectProduct: (product: CraftProduct) => void;
   spotlightProduct: CraftProduct;
 }
@@ -14,6 +15,7 @@ export const Hero: React.FC<HeroProps> = ({
   onExplore,
   onMeetMakers,
   onCommission,
+  onOpenChat,
   onSelectProduct,
   spotlightProduct,
 }) => {
@@ -70,6 +72,16 @@ export const Hero: React.FC<HeroProps> = ({
               >
                 Commission Bespoke Work
               </button>
+
+              {onOpenChat && (
+                <button
+                  onClick={onOpenChat}
+                  className="px-4 py-3.5 bg-[#FAF7F2] hover:bg-[#F2ECE1] text-[#24211D] border border-[#C5BBAA] text-sm font-medium rounded-md transition-all cursor-pointer flex items-center gap-2 shadow-2xs"
+                >
+                  <Sparkles className="w-4 h-4 text-[#C85A32]" />
+                  <span>Chat with Artisan AI</span>
+                </button>
+              )}
 
               <button
                 onClick={onMeetMakers}
